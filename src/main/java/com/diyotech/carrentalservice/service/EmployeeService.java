@@ -14,8 +14,6 @@ public interface EmployeeService {
 
     void deleterEmployee(Long id) throws EmployeeNotFoundException;
 
-    Employee authenticateEmployee(Employee employee);
-
     void addMultiple (List<Employee> employees);
 
 }

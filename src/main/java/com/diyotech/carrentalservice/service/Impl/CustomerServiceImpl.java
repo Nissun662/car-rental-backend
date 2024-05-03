@@ -85,15 +85,6 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.delete(existingCustomer);
     }
 
-    // 5. Method to check valid user or not
-    @Override
-    public Customer authenticateCustomer(Customer customer) {
-        Customer validatedCustomer = this.customerRepository.findCustomerByUserNameAndPassword(customer.getUserName(), customer.getPassword());
-        if(validatedCustomer != null){
-            return validatedCustomer;
-        }
-        return customer;
-    }
 
     @Override
     public void addMultiple(List<Customer> customers) {

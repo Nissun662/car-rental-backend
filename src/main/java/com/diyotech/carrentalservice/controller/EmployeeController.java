@@ -61,17 +61,6 @@ public class EmployeeController {
         return new ResponseEntity<>("Employee deleted successfully", HttpStatus.OK);
     }
 
-    // 5. API to check valid emmployee
-    // URL = http://localhost:8080/api/v1/employees/login
-    @PostMapping("/employee/login")
-    public ResponseEntity<?> checkValidEmployee (@RequestBody Employee employee){
-        Employee authenticatedEmployee = employeeService.authenticateEmployee(employee);
-        if(authenticatedEmployee != null && authenticatedEmployee.getRole() == UserRole.EMPLOYEE){
-            return ResponseEntity.ok(authenticatedEmployee);
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
-        }
-    }
 
     // API to add multiple employees
     // URL = http://localhost:8080/api/v1/employees

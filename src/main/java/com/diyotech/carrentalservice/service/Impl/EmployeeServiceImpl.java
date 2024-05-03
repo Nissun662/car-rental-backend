@@ -57,14 +57,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.delete(existingEmployee);
     }
 
-    @Override
-    public Employee authenticateEmployee(Employee employee) {
-        Employee validatedEmployee = this.employeeRepository.findEmployeeByUserNameAndPassword(employee.getUserName(), employee.getPassword());
-        if(validatedEmployee != null){
-            return validatedEmployee;
-        }
-        return employee;
-    }
 
     @Override
     public void addMultiple(List<Employee> employees) {

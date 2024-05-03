@@ -15,7 +15,7 @@ public interface CustomerService {
 
     void deleteCustomer(Long id) throws CustomerNotFoundException;
 
-    Customer authenticateCustomer(Customer customer);
+    //Customer authenticateCustomer(Customer customer);
 
     void addMultiple (List<Customer> customerList);
 

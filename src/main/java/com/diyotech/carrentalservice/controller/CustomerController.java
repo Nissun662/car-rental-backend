@@ -52,18 +52,18 @@ public class CustomerController {
         return new ResponseEntity<>("Customer deleted successfully", HttpStatus.OK);
     }
 
-    // 5. API to check valid user
-    // URL = http://localhost:8080/api/v1/customers/login
-    @PostMapping("/customer/login")
-    public ResponseEntity<?> checkValidCustomer (@RequestBody Customer customer){
-
-        Customer authenticatedCustomer = customerService.authenticateCustomer(customer);
-        if(authenticatedCustomer != null && authenticatedCustomer.getRole() == UserRole.CUSTOMER){
-            return ResponseEntity.ok(authenticatedCustomer);
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
-        }
-    }
+//    // 5. API to check valid user
+//    // URL = http://localhost:8080/api/v1/customers/login
+//    @PostMapping("/customer/login")
+//    public ResponseEntity<?> checkValidCustomer (@RequestBody Customer customer){
+//
+//        Customer authenticatedCustomer = customerService.authenticateCustomer(customer);
+//        if(authenticatedCustomer != null && authenticatedCustomer.getRole() == UserRole.CUSTOMER){
+//            return ResponseEntity.ok(authenticatedCustomer);
+//        } else {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+//        }
+//    }
 
 
     // API for self use to add multiple customer for testing purpose
