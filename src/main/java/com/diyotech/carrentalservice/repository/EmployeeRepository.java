@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
       Employee findEmployeeByUserNameAndPassword(String userName, String password);
+
+      Employee findEmployeeByUserName(String userName);
 }

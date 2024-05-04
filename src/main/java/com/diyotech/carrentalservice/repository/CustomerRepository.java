@@ -8,4 +8,5 @@ public interface CustomerRepository extends CrudRepository<Customer, Long> {
     // Native query to get customer's username and password
     Customer findCustomerByUserNameAndPassword(String username, String password);
 
+    Customer findCustomerByUserName(String username);
 }
