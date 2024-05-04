@@ -25,7 +25,7 @@ public class Vehicle {
 
     private Long mileage;
 
-    private double pricePerDay;
+    private Double pricePerDay;
 
 
     @Enumerated(value = EnumType.STRING)
@@ -33,7 +33,7 @@ public class Vehicle {
 
     // One vehicle can be associated with multiple reservations
     @JsonIgnore
-    @OneToMany(mappedBy = "vehicle", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Reservation> reservations;
 
 }

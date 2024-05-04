@@ -38,22 +38,24 @@ public class VehicleServiceImpl implements VehicleService {
         Vehicle existingVehicle = vehicleRepository.findById(id)
                 .orElseThrow(() -> new VehicleNotFoundException("Vehicle with id " + id + " not found"));
 
-        if(vehicle.getMake() != null){
+        if (vehicle.getMake() != null) {
             existingVehicle.setMake(vehicle.getMake());
         }
-        if(vehicle.getModel() != null){
+        if (vehicle.getModel() != null) {
             existingVehicle.setModel(vehicle.getModel());
         }
-        if(vehicle.getYear() != null){
+        if (vehicle.getYear() != null) {
             existingVehicle.setYear(vehicle.getYear());
         }
-        if(vehicle.getMileage() != null){
+        if (vehicle.getMileage() != null) {
             existingVehicle.setMileage(vehicle.getMileage());
         }
-        if(vehicle.getVehicleType() != null){
+        if (vehicle.getVehicleType() != null) {
             existingVehicle.setVehicleType(vehicle.getVehicleType());
         }
-
+        if (vehicle.getPricePerDay() != null) {
+            existingVehicle.setPricePerDay(vehicle.getPricePerDay());
+        }
         vehicleRepository.save(existingVehicle);
     }
 

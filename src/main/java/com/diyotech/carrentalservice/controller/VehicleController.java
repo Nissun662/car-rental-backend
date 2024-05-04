@@ -44,7 +44,7 @@ public class VehicleController {
     }
 
     // 4. API to delete vehicle by id
-    // URL = http://localhost:8080/api/vi/vehicles
+    // URL = http://localhost:8080/api/vi/vehicles/{id}
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteVehicle(@PathVariable Long id) throws VehicleNotFoundException {
         vehicleService.deleteVehicle(id);

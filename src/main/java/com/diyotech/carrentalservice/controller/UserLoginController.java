@@ -16,6 +16,7 @@ public class UserLoginController {
 
     private final UserServiceImpl userService;
 
+    // 1. API to validate username and password and return corresponding user role EMPLOYEE/CUSTOMER
     @PostMapping
     public ResponseEntity<User> checkValidCustomer(@RequestBody User user) {
         //System.err.println("checking valid user");
