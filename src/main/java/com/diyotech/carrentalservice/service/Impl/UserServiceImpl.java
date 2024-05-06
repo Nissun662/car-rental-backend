@@ -17,19 +17,6 @@ public class UserServiceImpl {
     private final CustomerRepository customerRepository;
     private final EmployeeRepository employeeRepository;
 
-//    public UserRole checkValid(User user) {
-//        Customer customer = customerRepository.findCustomerByUserNameAndPassword(user.getUserName(), user.getPassword());
-//        if (customer != null) {
-//            return customer.getRole();
-//        }
-//        Employee employee = employeeRepository.findEmployeeByUserNameAndPassword(user.getUserName(), user.getPassword());
-//        if (employee != null) {
-//            return employee.getRole();
-//        }
-//
-//        throw new IllegalArgumentException("Invalid username or password");
-//    }
-
         public Object checkValid(UserCredentials userCredentials) {
             Customer customer = customerRepository.findCustomerByUserNameAndPassword(userCredentials.getUserName(), userCredentials.getPassword());
             if (customer != null) {

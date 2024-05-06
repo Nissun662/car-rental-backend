@@ -14,6 +14,7 @@ import com.diyotech.carrentalservice.service.ReservationService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -26,7 +27,7 @@ public class ReservationServiceImpl implements ReservationService {
     private final VehicleRepository vehicleRepository;
 
     /*1. Method to create reservation by checking if existing customer or not and existing vehicle or not.
-    * This method check the vehicel status and denies reservation if vehicle is not available.
+    * This method check the vehicle status and denies reservation if vehicle is not available.
     * It accepts the reservation details customerId and vehicleId and noOfDays and calculates the price for the rental */
     @Override
     public void createReservation(Reservation reservation) throws CustomerNotFoundException, VehicleNotFoundException, VehicleNotAvailableException {
@@ -58,14 +59,10 @@ public class ReservationServiceImpl implements ReservationService {
         Reservation reservation1 = new Reservation();
         reservation1.setCustomer(customer);
         reservation1.setVehicle(vehicle);
-        reservation1.setReservationStartDate(LocalDateTime.now());
-
-
-        LocalDateTime endDate = reservation1.getReservationStartDate().plusDays(reservation.getNoOfDays());
-
+        reservation1.setReservationStartDate(LocalDate.now());
+        LocalDate endDate = reservation1.getReservationStartDate().plusDays(reservation.getNoOfDays());
         reservation1.setNoOfDays(reservation.getNoOfDays());
         reservation1.setReservationEndDate(endDate);
-
         reservation1.setStatus(ReservationStatus.CONFIRMED);
 
         // Price calculations
@@ -81,6 +78,7 @@ public class ReservationServiceImpl implements ReservationService {
         reservation1.setPayment(processedPayment);
 
         reservationRepository.save(reservation1);
+
     }
 
     // 2. Method to process payment

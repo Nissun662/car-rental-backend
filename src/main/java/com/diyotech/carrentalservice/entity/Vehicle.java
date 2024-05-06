@@ -33,7 +33,7 @@ public class Vehicle {
 
     // One vehicle can be associated with multiple reservations
     @JsonIgnore
-    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Reservation> reservations;
+    @OneToOne(mappedBy = "vehicle", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Reservation reservation;
 
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/reservations")
+@CrossOrigin("http://localhost:4200")
 @AllArgsConstructor
 public class ReservationController {
     private final ReservationService reservationService;
