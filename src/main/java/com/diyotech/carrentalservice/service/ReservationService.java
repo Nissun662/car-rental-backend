@@ -6,6 +6,8 @@ import com.diyotech.carrentalservice.exception.ReservationNotFoundException;
 import com.diyotech.carrentalservice.exception.VehicleNotAvailableException;
 import com.diyotech.carrentalservice.exception.VehicleNotFoundException;
 
+import java.util.List;
+
 public interface ReservationService {
 
     void createReservation(Reservation reservation) throws CustomerNotFoundException, VehicleNotFoundException, VehicleNotAvailableException;
@@ -15,6 +17,8 @@ public interface ReservationService {
     void deleteReservation(Long reservationId) throws ReservationNotFoundException;
 
     void updateReservation(Long reservationId, Reservation reservation) throws ReservationNotFoundException;
+
+    List<Reservation> getAllReservations();
 
 
 

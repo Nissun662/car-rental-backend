@@ -11,12 +11,16 @@ import com.diyotech.carrentalservice.repository.CustomerRepository;
 import com.diyotech.carrentalservice.repository.ReservationRepository;
 import com.diyotech.carrentalservice.repository.VehicleRepository;
 import com.diyotech.carrentalservice.service.ReservationService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 @AllArgsConstructor
@@ -119,35 +123,50 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public void updateReservation(Long reservationId, Reservation reservation) throws ReservationNotFoundException {
         Reservation existingReservation = reservationRepository.findById(reservationId)
-                .orElseThrow(()-> new ReservationNotFoundException("Reservation not found for id:"+ reservationId));
+                .orElseThrow(() -> new ReservationNotFoundException("Reservation not found for id:" + reservationId));
 
-        if(reservation.getNoOfDays() != null){
+        if (reservation.getNoOfDays() != null) {
             existingReservation.setNoOfDays(reservation.getNoOfDays());
         }
-        if(reservation.getCustomer().getCusId() != null){
+        if (reservation.getCustomer().getCusId() != null) {
             existingReservation.setCustomer(reservation.getCustomer());
         }
-        if(reservation.getVehicle().getVehicleId() != null){
+        if (reservation.getVehicle().getVehicleId() != null) {
             existingReservation.setVehicle(reservation.getVehicle());
         }
 
         // Update payment method
-        if(reservation.getPayment() != null){
+        if (reservation.getPayment() != null) {
             Payment existingPayment = existingReservation.getPayment();
             Payment newPayment = reservation.getPayment();
 
-            if(newPayment.getCreditCardNumber() != null){
+            if (newPayment.getCreditCardNumber() != null) {
                 existingPayment.setCreditCardNumber(newPayment.getCreditCardNumber());
             }
-            if(newPayment.getCvv() != null){
+            if (newPayment.getCvv() != null) {
                 existingPayment.setCvv(newPayment.getCvv());
             }
-            if(newPayment.getExpiration() != null){
+            if (newPayment.getExpiration() != null) {
                 existingPayment.setExpiration(newPayment.getExpiration());
             }
-
-            reservationRepository.save(existingReservation);
         }
+
+        // Calculate and update total price
+        Double pricePerDay = existingReservation.getVehicle().getPricePerDay();
+        Integer noOfDays = existingReservation.getNoOfDays();
+        Double totalPrice = pricePerDay * noOfDays;
+        existingReservation.setTotalPrice(totalPrice);
+
+        reservationRepository.save(existingReservation);
     }
+
+    @Override
+    public List<Reservation> getAllReservations() {
+        Iterable<Reservation> iterable = reservationRepository.findAll();
+        List<Reservation> reservations = StreamSupport.stream(iterable.spliterator(), false)
+                .collect(Collectors.toList());
+        return reservations;
+    }
+
 
 }
